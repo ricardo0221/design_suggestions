@@ -1,0 +1,18 @@
+import pandas as pd
+import numpy as np
+import csv
+
+def splitList(df, char):
+    new_df = pd.DataFrame(df.iloc[:,0].str.split(char,expand=True)).stack()
+    new_df = new_df.reset_index().drop(columns=['level_0', 'level_1'])
+    new_df.iloc[:,0].replace('', np.nan, inplace=True)
+    new_df = new_df.dropna()
+    return new_df
+
+def most_frequent(df):
+    return df.max(axis=0)
+
+list = pd.read_csv('design_suggestions.csv', encoding='utf-8')
+new_list = splitList(list, '\n')
+new_list = splitList(new_list, ',')
+#export_csv = new_list.to_csv(r'C:\Users\Ricardo\Desktop\export_dataframe.csv', index=None, header=False, encoding='utf-8-sig')
