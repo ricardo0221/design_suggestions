@@ -1,0 +1,9 @@
+import pandas as pd
+import numpy as np
+import csv
+
+list = pd.read_csv('demographics.csv', encoding='utf-8')
+
+
+for col in list.columns:
+    print(col)
